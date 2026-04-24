@@ -1,17 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from utils import get_tutor_reply
-
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
-
-@app.route("/")
+@app.route('/')
 def home():
-    return "TalkMate API running 🚀"
-
-@app.route("/process", methods=["GET", "POST"])
+    return render_template("index.html")
+@app.route('/process', methods=["POST"])
 def process():
-    if request.method == "GET":
-        return "Use POST request 😄"
-    
     user_msg = request.json["message"]
-    reply = get_tutor_reply(user_msg)
-    return jsonify({"reply": reply})
+    result = get_tutor_reply(user_msg)
+    return jsonify(result)
+if __name__ == "__main__":
+    app.run(debug=True)
