@@ -3,8 +3,15 @@ from utils import get_tutor_reply
 
 app = Flask(__name__)
 
-@app.route("/process", methods=["POST"])
+@app.route("/")
+def home():
+    return "TalkMate API running 🚀"
+
+@app.route("/process", methods=["GET", "POST"])
 def process():
+    if request.method == "GET":
+        return "Use POST request 😄"
+    
     user_msg = request.json["message"]
-    result = get_tutor_reply(user_msg)
-    return jsonify(result)
+    reply = get_tutor_reply(user_msg)
+    return jsonify({"reply": reply})

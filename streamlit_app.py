@@ -8,7 +8,7 @@ msg = st.text_input("Ask something")
 if st.button("Send"):
     if msg:
         res = requests.post(
-            "http://localhost:5000/process",
+            "https://opulent-cod-69vjwpwwxv9gc77p-8501.app.github.dev/process",
             json={"message": msg}
         )
         st.write(res.json())
